@@ -28,8 +28,8 @@ pipeline {
                 sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'  
                 // 🔹 Builds the Docker image using the Dockerfile in the project root
 
-                withCredentials([string(credentialsId: 'docker-hub-token', variable: 'DOCKER_HUB_PASSWORD')]) {
-                    sh 'echo $DOCKER_HUB_PASSWORD | docker login -u your-dockerhub-username --password-stdin'  
+                withCredentials([string(credentialsId: 'docker-token-cred', variable: 'DOCKER_HUB_PASSWORD')]) {
+                    sh 'echo $DOCKER_HUB_PASSWORD | docker login -u abdi76 --password-stdin'  
                     // 🔹 Authenticates to Docker Hub using Jenkins stored credentials (Replace 'docker-hub-token' with the actual credentials ID)
                 }
 
@@ -40,7 +40,7 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['deployment-server-key']) {  
+                sshagent(['ec2-ssh-key']) {  
                     // 🔹 Uses Jenkins SSH credentials (Replace 'deployment-server-key' with actual Jenkins credentials ID for EC2)
                     sh '''
                     ssh -o StrictHostKeyChecking=no $DEPLOY_SERVER << EOF
