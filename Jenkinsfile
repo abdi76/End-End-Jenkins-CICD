@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps { 
-                git branch: 'main', url: 'https://github.com/your-github/sample-java-app.git'  
+                git branch: 'main', url: 'https://github.com/abdi76/End-End-Jenkins-CICD.git'  
                 // 🔹 Replace 'your-github' with your GitHub username or organization (e.g., 'my-github-user')
                 // 🔹 Ensure the repo URL is correct before running
             }
